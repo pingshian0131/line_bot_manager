@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}信件通知名單{% endblock %}
+
+{% block main %}
+  <div class="container">
+    <h2> 信件通知名單 </h2>
+  </div>
+  <div class="container table-bordered table-hover table-striped" style="margin: 4em auto; height: 150%; overflow-x:auto;">
+    <div class="row table-primary">
+      <div class="col">
+        <h6>序號</h6>
+      </div>
+      <div class="col">
+        <h6>教會名稱</h6> 
+      </div>
+      <div class="col">
+        <h6>個案姓名</h6>
+      </div>
+      <div class="col">
+        <h6>社工</h6> 
+      </div>
+      <div class="col">
+        <h6>認養人匿名</h6> 
+      </div>
+      <div class="col">
+        <h6>稱謂</h6> 
+      </div>
+      <div class="col">
+        <h6>事由</h6> 
+      </div>
+      <div class="col">
+        <h6>通知日期</h6> 
+      </div>
+      <div class="col">
+        <h6>到期日期</h6> 
+      </div>
+      <div class="col">
+        <h6>相關說明</h6> 
+      </div>
+      <div class="col">
+        <h6>能否Email</h6> 
+      </div>
+    </div>
+
+  <!-- 宣告一個巨集 -->
+  {% macro easy_row(data, tag) -%}
+    {% for record in data %}
+    <div class="row table-light">
+      {% for item in record %}
+      <div class="col">
+      <{{ tag }}>{{ item }}</{{ tag }}>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  {%- endmacro %}
+
+  <!-- 將所有草泥馬的訓練紀錄列在下面 -->
+  {{ easy_row(html_records, "p") }}
+  
+  </div>
+
+{% endblock %}

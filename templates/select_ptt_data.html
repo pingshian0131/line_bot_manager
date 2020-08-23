@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}PTT 爬蟲{% endblock %}
+
+{% block main %}
+
+{% macro easy_option_form(col_name, col_options) -%}
+  <div class="form-group row">
+    <label for="{{ col_name }}" class="col-2 offset-1 col-form-label">{{ col_name }} =</label>
+      <input list="{{ col_name }}" name="{{ col_name }}" placeholder="select a ptt board" required="required">
+      <datalist id="{{ col_name }}">
+        {% for col_option in col_options %}
+        <option value="{{ col_option.board_name }}">{{ col_option.board_name }}</option>
+        {% endfor %}
+      </datalist>
+    <style>
+    input[name="board_name"] {
+      border: 2px #C8A2C8;
+      border-radius: 10px 10px 10px 10px;
+      font-size: 18px;
+      padding: 5px;
+      height: 35px;
+      width: 350px;
+    }
+    input::-webkit-calendar-picker-indicator {
+    /*   display: none; */
+    }
+    </style>
+  </div>
+{%- endmacro %}
+
+{% macro easy_text_form(col_name, note) -%}
+  <div class="form-group row">
+    <label for="{{ col_name }}" class="col-2 offset-1 col-form-label">{{ col_name }} =</label>
+    <div class="col-3">
+      <input type="text" class="form-control" id="{{ col_name }}" name="{{ col_name }}" placeholder="{{ col_name }}">
+      <small class="form-text">{{ note }}</small>
+    </div>
+  </div>
+{%- endmacro %}
+
+<div class="container" style="margin: 4em auto">
+<div class="row">
+<div class="col">
+  <h1>選擇看板</h1>
+  <br>
+<form method="post" action="/select_ptt_data">
+
+  {{ easy_option_form("board_name", uniques) }}
+
+  {{ easy_text_form("push_count", "請輸入要搜尋的推文數") }}
+
+  {{ easy_text_form("title", "請輸入要搜尋的標題") }}
+
+  <button type="submit" class="btn btn-dirty-purple">查詢紀錄</button>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

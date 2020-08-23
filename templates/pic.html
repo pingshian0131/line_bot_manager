@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}圖片{% endblock %}
+
+{% block main %}
+  <div class="container">
+    <h2> 圖片 </h2>
+  </div>
+  <div class="container table-bordered table-hover table-striped" style="margin: 4em auto; height: 150%; overflow-x:auto;">
+
+  <!-- 宣告一個巨集 -->
+  {% macro easy_row(data, tag) -%}
+    <picture>
+      {% for item in data %}
+      <{{ tag }}={{ item }} style="width:100%">
+      {% endfor %}
+    </picture>
+  {%- endmacro %}
+
+  <!-- 將所有草泥馬的訓練紀錄列在下面 -->
+  {{ easy_row(html_records, "img src") }}
+  
+  </div>
+
+{% endblock %}

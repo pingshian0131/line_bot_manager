@@ -1,0 +1,96 @@
+Ptt_看板爬蟲
+
+  <div class="container">
+    <br>
+    <h2> Ptt_看板爬蟲 </h2>
+    <br>
+  </div>
+  </div>
+  
+  <!-- 宣告巨集 board name -->
+  {% macro board (data, tag) -%}
+  <div class="container">
+    <{{ tag }}>看板&nbsp;&nbsp;{{ data }}</{{ tag }}>
+  </div>
+  {%- endmacro %}
+    
+  <!-- board name -->
+  {{ board (board_name, "h2") }}
+
+
+  <!-- 宣告巨集 header -->
+    {% macro header (data, tag) -%}
+      <thead>
+      {% for item in data %}
+          <th>
+              <{{ tag }}>{{ item }}</{{ tag }}>
+          </th>
+      {% endfor %}
+      </thead>
+    {%- endmacro %}
+
+  <!-- 宣告巨集 data -->
+    {% macro easy_row(data, tag) -%}
+      <tbody>
+      {% for item in data %}
+          <tr>
+              <{{ tag }}>{{ item.Id }}</{{ tag }}>
+              <{{ tag }}>{{ item.push_num }}</{{ tag }}>
+              <{{ tag }}> <a href="{{ item.url }}">{{ item.title }}</a></{{ tag }}>
+              <{{ tag }}>{{ item.date }}</{{ tag }}>
+          </tr>
+      {% endfor %}
+      </tbody>
+    {%- endmacro %}
+
+
+  <!-- 宣告一些等等會用來創造欄位說明的變數 -->
+  {% set col_names = ("編號", "推", "標題", "日期") %}
+
+  <!-- 用巨集快速創造欄位名稱 -->
+  <div class="container">
+    <div class="container table-bordered table-hover table-striped" style="height:150% ;overflow-x:auto;">
+        <table class="sortable">
+  <!-- header -->
+  {{ header (col_names, "h6") }}
+  <!-- 將所有草泥馬的訓練紀錄列在下面 -->
+  {{ easy_row (html_records, "td") }}
+        </table>
+        <script type="text/javascript" src="/static/js/sorttable.js"></script>
+        <style>
+          table {
+              width:100%;
+              margin:15px 0
+          }
+          th {
+              background-color:#87CEFA;
+              background:-o-linear-gradient(90deg, #87CEFA, #bae3fc);
+              background:-moz-linear-gradient( center top, #87CEFA 5%, #bae3fc 100% );
+              background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #87CEFA), color-stop(1, #bae3fc) );
+              filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#87CEFA', endColorstr='#bae3fc');
+              color:#000000
+          }
+          th, td
+          {
+              font-size:0.95em;
+              text-align:center;
+              padding:4px;
+              border:1px solid #efefef;
+              border-collapse:collapse
+          }
+          tr:nth-child(odd){
+              background-color:#d7eefd;
+              background:-o-linear-gradient(90deg, #d7eefd, #f7fbfe);
+              background:-moz-linear-gradient( center top, #d7eefd 5%, #f7fbfe 100% );
+              background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d7eefd), color-stop(1, #f7fbfe) );
+              filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d7eefd', endColorstr='#f7fbfe');
+          }
+          tr:nth-child(even){
+              background-color:#fdfdfd;
+          }
+          tr:hover td {
+              background-color:#F0F0F0;
+          }
+        </style>
+    </div>
+  </div>
