@@ -104,10 +104,20 @@ def ptt_data ():
                                     ptt_articles.url , ptt_articles.article_date)\
                         .filter (ptt_articles.board_name == board_name , ptt_articles.push_num == push_num).distinct ().all ()
     else:
-        data = db.session.query (ptt_articles.title , ptt_articles.push_count ,
-                                    ptt_articles.url , ptt_articles.article_date)\
-                        .filter (ptt_articles.board_name == board_name , ptt_articles.push_num == push_num ,
-                                    func.lower(ptt_articles.search_item) == func.lower(search_title) ).distinct ().all ()
+        data = db.session.query (
+            ptt_articles.title,
+            ptt_articles.push_count,
+            ptt_articles.url,
+            ptt_articles.article_date
+        ).filter(
+            ptt_articles.board_name == board_name,
+            ptt_articles.push_num == push_num,
+            func.lower(
+                ptt_articles.search_item
+            ) == func.lower(
+                search_title
+            )
+        ).distinct().all()
     
     print ("len (data): {}".format (len (data)))
     row = []
