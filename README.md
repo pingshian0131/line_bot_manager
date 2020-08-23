@@ -24,4 +24,8 @@ src="https://travis-ci.com/caiyunapp/caiyun-weather-dashboard.svg?token=W2LJe9sY
 # TODO:
 - 目錄拆分完成: PTT的route都要可以使用
 - 把部分功能, 從views封裝成libs的function
-- gitflow可以再看一下
+- gitflow可以再看一下(了解一下)
+- git常用指令要熟悉:
+  - add, commit, push, pull, merge, rebase, branch, log, reflog, reset, checkout, stash
+  - squash merge and squash rebase
+- Optimize README file: add travis and use dockerfile
