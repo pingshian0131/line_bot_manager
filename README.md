@@ -18,6 +18,10 @@ src="https://travis-ci.com/caiyunapp/caiyun-weather-dashboard.svg?token=W2LJe9sY
 - TODO: Run server with gunicorn / uwsgi
 
 # How to use: TODO: complete the steps for using this repo
+- step1: visit http://localhost:5000/
+- step2: type the board and push_num into the UI page
+- steps: click submit
+- .....
 
 # Test: TODO: if you wanna use travis CI
 

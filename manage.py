@@ -1,3 +1,6 @@
+# coding=UTF-8
+# This Python file uses the following encoding: utf-8
+
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager, Server
 from main import app

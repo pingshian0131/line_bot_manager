@@ -1,5 +1,5 @@
 from flask import Blueprint, request, current_app, redirect, url_for, render_template
-from event.ptt_bs4 import main as ptt_main
+from libs.ptt_bs4 import main as ptt_main
 from datetime import datetime
 from models import ptt_articles
 from sqlalchemy import func , or_
@@ -10,6 +10,7 @@ bp = Blueprint("ptt_api", __name__)
 
 @bp.route("/", methods=["GET"])
 def index():
+    print (1)
     return "Hello ptt api"
 
 @bp.route ("/ptt", methods=['GET'])
