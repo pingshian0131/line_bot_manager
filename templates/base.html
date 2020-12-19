@@ -27,49 +27,20 @@
 
 <body>
   <nav class="navbar navbar-expand navbar-dark bg-dirty-purple">
-  <a class="navbar-brand" href="/">基督教芥菜種會專管小幫手</a>
+  <a class="navbar-brand" href="/ptt_api/select_ptt_data">PTT 熱門看板爬蟲</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-    <!-- 登入後才可見到的導覽列 -->
-    {% if current_user.is_authenticated %}
-
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/users_list">好友名單</span></a>
+        <a class="nav-link" href="#">#</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/letter_list">信件通知名單</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          物資登記
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">物資總表</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">物資登記情形</a>
-          <a class="dropdown-item" href="/show_records">原始登記資料</a>
-          <a class="dropdown-item" href="/show_records">有登記教會</a>
-        </div>
+        <a class="nav-link" href="#">#</a>
       </li>
     </ul>
-    {% endif %}
-
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
-      {% if current_user.is_authenticated %}
-        <a class="nav-link" href="/logout">登出</a>
-      {% else %}
-        <a class="nav-link" href="/login">登入</a>
-      {% endif %}
-    </li>
-  </ul>
-
-
   </div>
   </nav>
 

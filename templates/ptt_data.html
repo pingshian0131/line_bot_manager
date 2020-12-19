@@ -1,21 +1,19 @@
-Ptt_看板爬蟲
+{% extends "base.html" %}
 
-  <div class="container">
-    <br>
-    <h2> Ptt_看板爬蟲 </h2>
-    <br>
-  </div>
-  </div>
-  
+{% block title %}PTT 爬蟲{% endblock %}
+
+{% block main %}
+
   <!-- 宣告巨集 board name -->
   {% macro board (data, tag) -%}
   <div class="container">
+    <br>
     <{{ tag }}>看板&nbsp;&nbsp;{{ data }}</{{ tag }}>
   </div>
   {%- endmacro %}
     
   <!-- board name -->
-  {{ board (board_name, "h2") }}
+  {{ board (board_name, "h3") }}
 
 
   <!-- 宣告巨集 header -->
@@ -52,7 +50,7 @@ Ptt_看板爬蟲
     <div class="container table-bordered table-hover table-striped" style="height:150% ;overflow-x:auto;">
         <table class="sortable">
   <!-- header -->
-  {{ header (col_names, "h6") }}
+  {{ header (col_names, "h3") }}
   <!-- 將所有草泥馬的訓練紀錄列在下面 -->
   {{ easy_row (html_records, "td") }}
         </table>
@@ -68,7 +66,7 @@ Ptt_看板爬蟲
               background:-moz-linear-gradient( center top, #87CEFA 5%, #bae3fc 100% );
               background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #87CEFA), color-stop(1, #bae3fc) );
               filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#87CEFA', endColorstr='#bae3fc');
-              color:#000000
+              color:#000000;
           }
           th, td
           {
@@ -94,3 +92,4 @@ Ptt_看板爬蟲
         </style>
     </div>
   </div>
+{% endblock %}

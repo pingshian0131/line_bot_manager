@@ -4,7 +4,7 @@
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager, Server
 from main import app
-from models import Todo, ptt_articles
+from models import ptt_articles
 from views.ptt_apis import bp as ptt_api
 
 

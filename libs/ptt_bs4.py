@@ -1,12 +1,6 @@
-import requests
-import time
+import requests, time, os, re, json, sys
 from bs4 import BeautifulSoup
-import os
-import re
 import urllib.request
-import json
-import sys
-
 
 PTT_URL = 'https://www.ptt.cc'
 count = 0
@@ -15,29 +9,27 @@ article_num = 0
 def get_web_page(url):
     global count
     count += 1
-    print (count)
+    print(count)
     time.sleep(0.5)  # 每次爬取前暫停 0.5 秒以免被 PTT 網站判定為大量惡意爬取
     resp = requests.get(
         url=url,
-        cookies={'over18': '1'}
-    )
-    print (url)
+        cookies={'over18': '1'})
+    print(url)
     if resp.status_code != 200:
         print('Invalid url:', resp.url)
         return None
     else:
         return resp.text
 
-
-def get_articles(dom, board_name , push_num , search_title):
-    global PTT_URL , article_num 
+def get_articles(dom, board_name, push_num, search_title):
+    global PTT_URL, article_num 
     soup = BeautifulSoup(dom, 'html.parser')
-#    print (soup)
+#    print(soup)
 #    f_path = '/Users/pingshian/Desktop/Gossiping.txt'
-#    with open (f_path , 'w' , encoding = 'utf-8') as f:
-#        f.write (str(soup))
-#    input ()
-#    sys.exit ()
+#    with open(f_path, 'w', encoding = 'utf-8') as f:
+#        f.write(str(soup))
+#    input()
+#    sys.exit()
     # 取得上一頁的連結
 
     paging_div = soup.find('div', 'btn-group btn-group-paging')
@@ -46,7 +38,7 @@ def get_articles(dom, board_name , push_num , search_title):
     articles = []  # 儲存取得的文章資料
     divs = soup.find_all('div', 'r-ent')
     for d in divs:
-        Y , M , D = time.strftime("%Y %m %d").split()
+        Y, M, D = time.strftime("%Y %m %d").split()
         date = Y + '/' + d.find('div', 'date').string.strip()  # 發文日期 
             # 取得推文數
         push_count = 0
@@ -59,7 +51,7 @@ def get_articles(dom, board_name , push_num , search_title):
         if push_num == "":
             if search_title != None:
                 if d.find('a'):  # 有超連結，表示文章存在，未被刪除
-                    if re.search (search_title , d.find ('a').string , re.IGNORECASE) != None:
+                    if re.search(search_title, d.find('a').string, re.IGNORECASE) != None:
                         href = PTT_URL + d.find('a')['href']
                         title = d.find('a').string
                         article_num += 1
@@ -68,7 +60,7 @@ def get_articles(dom, board_name , push_num , search_title):
                             'board_name':board_name ,
                             'title': title ,
                             'url': href ,
-                            'date': date , 
+                            'date': date, 
                             'search':search_title ,
                             'push_count': push_count ,
                             'push_num': None 
@@ -83,13 +75,13 @@ def get_articles(dom, board_name , push_num , search_title):
                         'board_name':board_name ,
                         'title': title ,
                         'url': href ,
-                        'date': date , 
+                        'date': date, 
                         'search':search_title ,
                         'push_count': push_count ,
                         'push_num': None  
                     })
         elif push_num != "":
-            if push_count > int (push_num): 
+            if push_count > int(push_num): 
                 if search_title == None:
                     if d.find('a'):  # 有超連結，表示文章存在，未被刪除
                         href = PTT_URL + d.find('a')['href']
@@ -107,7 +99,7 @@ def get_articles(dom, board_name , push_num , search_title):
                         })
                 else:
                     if d.find('a'):  # 有超連結，表示文章存在，未被刪除
-                        if re.search (search_title , d.find ('a').string , re.IGNORECASE) != None:
+                        if re.search(search_title, d.find('a').string, re.IGNORECASE) != None:
                             href = PTT_URL + d.find('a')['href']
                             title = d.find('a').string
                             article_num += 1
@@ -152,26 +144,26 @@ def save(img_urls, title):
         except Exception as e:
             print(e)
 
-def main (board_name , push_num , search_title):
-    global count , article_num 
+def main(board_name, push_num, search_title):
+    global count, article_num 
     current_page = get_web_page(PTT_URL + '/bbs/' + board_name + '/index.html')
 #    current_page = get_web_page(PTT_URL + '/bbs/Beauty/index.html')
     if current_page:
         articles = []  # 全部的今日文章
         date = time.strftime("%m/%d").lstrip('0')  # 今天日期, 去掉開頭的 '0' 以符合 PTT 網站格式
-        current_articles, prev_url = get_articles(current_page, board_name , push_num , search_title)  # 目前頁面的今日文章
+        current_articles, prev_url = get_articles(current_page, board_name, push_num, search_title)  # 目前頁面的今日文章
         if push_num == "":
             article_target = 31
         else:
             article_target = 12
         while article_num < article_target:  # 若目前頁面有今日文章則加入 articles，並回到上一頁繼續尋找是否有今日文章
-            print ("article_num: {}".format (article_num))
+            print("article_num: {}".format(article_num))
             articles += current_articles
             current_page = get_web_page(PTT_URL + prev_url)
-            current_articles, prev_url = get_articles(current_page, board_name , push_num , search_title)
+            current_articles, prev_url = get_articles(current_page, board_name, push_num, search_title)
 
         # 已取得文章列表，開始進入各文章讀圖
-        print ("已取得文章共：" , len (articles) , "篇")
+        print("已取得文章共：", len(articles), "篇")
 #        for article in articles:
 #            print('Processing', article)
 #            page = get_web_page(PTT_URL + article['href'])

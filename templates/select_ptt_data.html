@@ -44,7 +44,7 @@
 <div class="col">
   <h1>選擇看板</h1>
   <br>
-<form method="post" action="/select_ptt_data">
+<form method="post" action="/ptt_api/select_ptt_data">
 
   {{ easy_option_form("board_name", uniques) }}
 
@@ -52,7 +52,7 @@
 
   {{ easy_text_form("title", "請輸入要搜尋的標題") }}
 
-  <button type="submit" class="btn btn-dirty-purple">查詢紀錄</button>
+  <button type="submit" class="btn btn-dirty-purple">查詢</button>
 </form>
 </div>
 </div>
